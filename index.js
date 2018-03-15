@@ -13,6 +13,7 @@ var win_lines = [[0,0,0], [1,1,1], [2,2,2], [0,1,2], [2,1,0]]
 var grid_dice = []
 var score_text = new PIXI.Text("Total score: 0");
 var grid_scores = [new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0")]
+var line_graphics = new PIXI.Graphics();
 
 function throwDice()
 {
@@ -84,7 +85,8 @@ function addGameBoard()
     score_text.x = 30;
     score_text.y = 75;
     app.stage.addChild(score_text);
-    app.stage.addChild(graphics)
+    app.stage.addChild(graphics);
+    app.stage.addChild(line_graphics);
 }
 
 function throwAndDrawDice()
@@ -103,6 +105,8 @@ function throwAndDrawDice()
     grid_dice.forEach( (x) => {
             app.stage.removeChild(x);
         })
+    app.stage.removeChild(line_graphics);
+
     grid_states.forEach( function(grid_state) {
         var column_idx = 0;
         grid_state.forEach( function(column) {
@@ -123,16 +127,19 @@ function throwAndDrawDice()
     
     var win_lines = [[0,0,0], [1,1,1], [2,2,2], [0,1,2], [2,1,0]]
     
+    line_graphics = new PIXI.Graphics();
+    line_graphics.lineStyle(2, 0xff0000, 1);
     var grid_idx = 0;
-    var total_points = 0;
+    var total_points = 0;        
     grid_states.forEach( function(grid_state) {
         if (grid_state.length == 3) {
             var points = 0;
             win_lines.forEach( function(win_line) {
                 if (grid_state[0][win_line[0]] == grid_state[1][win_line[1]] &&
                     grid_state[0][win_line[0]] == grid_state[2][win_line[2]]) {                    
-                    points += (grid_state[0][win_line[0]] + 1);
-                    console.log(points);
+                    points += (grid_state[0][win_line[0]] + 1);                                        
+                    line_graphics.moveTo(40 + 120 * grid_idx, 160 + 30 * win_line[0])
+                    line_graphics.lineTo(110 + 120 * grid_idx, 170 + 30 * win_line[2])
                 }
             })
             total_points += points;
@@ -140,7 +147,7 @@ function throwAndDrawDice()
         }
         grid_idx += 1;     
     })
-
+    app.stage.addChild(line_graphics);
     score_text.text = 'Total score: ' + total_points;
 }
 
