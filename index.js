@@ -6,7 +6,6 @@ PIXI.loader
     .load(onAssetsLoaded);
 
 var sprite_files = ['one.png', 'two.png', 'three.png', 'four.png', 'five.png', 'six.png']
-
 var grid_states = [[], [], [], []]
 var currentThrow = []
 var win_lines = [[0,0,0], [1,1,1], [2,2,2], [0,1,2], [2,1,0]]
@@ -14,6 +13,8 @@ var grid_dice = []
 var score_text = new PIXI.Text("Total score: 0");
 var grid_scores = [new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0")]
 var line_graphics = new PIXI.Graphics();
+var text_opts = [];
+var refresh_text = 0;
 
 function throwDice()
 {
@@ -72,14 +73,17 @@ function addGameBoard()
         var basicText = new PIXI.Text(g == 0 ? 'a' : g == 1 ? 's' : g == 2 ? 'd' : 'f');
         basicText.x = 68 + g*120;
         basicText.y = 120;
+        basicText.interactive = true;
+        text_opts.push(basicText);
         grid_scores[g].x = 30 + g*120;
         grid_scores[g].y = 240;
         app.stage.addChild(grid_scores[g])
         app.stage.addChild(basicText);
     }
-    var refresh_text = new PIXI.Text("Press 'r' to restart.");
+    refresh_text = new PIXI.Text("Press 'r' to restart.");
     refresh_text.x = 30;
     refresh_text.y = 30;
+    refresh_text.interactive = true;
     app.stage.addChild(refresh_text);
     
     score_text.x = 30;
@@ -161,12 +165,60 @@ function onAssetsLoaded()
     let d_key = keyboard(68);
     let f_key = keyboard(70);
     let r_key = keyboard(82);
+    text_opts[0].on('click', (event) => {
+        if (grid_states[0].length < 3) {
+            grid_states[0].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
+    text_opts[1].on('click', (event) => {
+        if (grid_states[1].length < 3) {
+            grid_states[1].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
+    text_opts[2].on('click', (event) => {
+        if (grid_states[2].length < 3) {
+            grid_states[2].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
+    text_opts[3].on('click', (event) => {
+        if (grid_states[3].length < 3) {
+            grid_states[3].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
+    text_opts[0].on('tap', (event) => {
+        if (grid_states[0].length < 3) {
+            grid_states[0].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
+    text_opts[1].on('tap', (event) => {
+        if (grid_states[1].length < 3) {
+            grid_states[1].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
+    text_opts[2].on('tap', (event) => {
+        if (grid_states[2].length < 3) {
+            grid_states[2].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
+    text_opts[3].on('tap', (event) => {
+        if (grid_states[3].length < 3) {
+            grid_states[3].push(current_throw)
+            throwAndDrawDice();
+        }
+    });
     a_key.press = () => {
         if (grid_states[0].length < 3) {
             grid_states[0].push(current_throw)
             throwAndDrawDice();
         }
-    }
+    };
     s_key.press = () => {
         if (grid_states[1].length < 3) {
             grid_states[1].push(current_throw)
@@ -185,6 +237,14 @@ function onAssetsLoaded()
             throwAndDrawDice();
         }
     }
+    refresh_text.on('click', (event) => {
+        grid_states = [[], [], [], []]
+        throwAndDrawDice();
+    });
+    refresh_text.on('tap', (event) => {
+        grid_states = [[], [], [], []]
+        throwAndDrawDice();
+    });
     r_key.press = () => {        
         grid_states = [[], [], [], []]
         throwAndDrawDice();
