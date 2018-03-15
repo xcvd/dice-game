@@ -138,8 +138,8 @@ function throwAndDrawDice()
                 if (grid_state[0][win_line[0]] == grid_state[1][win_line[1]] &&
                     grid_state[0][win_line[0]] == grid_state[2][win_line[2]]) {                    
                     points += (grid_state[0][win_line[0]] + 1);                                        
-                    line_graphics.moveTo(40 + 120 * grid_idx, 160 + 30 * win_line[0])
-                    line_graphics.lineTo(110 + 120 * grid_idx, 170 + 30 * win_line[2])
+                    line_graphics.moveTo(45 + 120 * grid_idx, 165 + 30 * win_line[0])
+                    line_graphics.lineTo(105 + 120 * grid_idx, 165 + 30 * win_line[2])
                 }
             })
             total_points += points;
