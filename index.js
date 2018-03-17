@@ -247,6 +247,7 @@ function onAssetsLoaded()
     });
     r_key.press = () => {        
         grid_states = [[], [], [], []]
+        grid_scores = [new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0")]
         throwAndDrawDice();
     }
 }
