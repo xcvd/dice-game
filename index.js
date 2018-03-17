@@ -165,54 +165,7 @@ function onAssetsLoaded()
     let d_key = keyboard(68);
     let f_key = keyboard(70);
     let r_key = keyboard(82);
-    text_opts[0].on('click', (event) => {
-        if (grid_states[0].length < 3) {
-            grid_states[0].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
-    text_opts[1].on('click', (event) => {
-        if (grid_states[1].length < 3) {
-            grid_states[1].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
-    text_opts[2].on('click', (event) => {
-        if (grid_states[2].length < 3) {
-            grid_states[2].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
-    text_opts[3].on('click', (event) => {
-        if (grid_states[3].length < 3) {
-            grid_states[3].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
-    text_opts[0].on('tap', (event) => {
-        if (grid_states[0].length < 3) {
-            grid_states[0].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
-    text_opts[1].on('tap', (event) => {
-        if (grid_states[1].length < 3) {
-            grid_states[1].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
-    text_opts[2].on('tap', (event) => {
-        if (grid_states[2].length < 3) {
-            grid_states[2].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
-    text_opts[3].on('tap', (event) => {
-        if (grid_states[3].length < 3) {
-            grid_states[3].push(current_throw)
-            throwAndDrawDice();
-        }
-    });
+
     a_key.press = () => {
         if (grid_states[0].length < 3) {
             grid_states[0].push(current_throw)
@@ -236,18 +189,12 @@ function onAssetsLoaded()
             grid_states[3].push(current_throw)
             throwAndDrawDice();
         }
-    }
-    refresh_text.on('click', (event) => {
-        grid_states = [[], [], [], []]
-        throwAndDrawDice();
-    });
-    refresh_text.on('tap', (event) => {
-        grid_states = [[], [], [], []]
-        throwAndDrawDice();
-    });
+    }    
     r_key.press = () => {        
-        grid_states = [[], [], [], []]
-        grid_scores = [new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0"),new PIXI.Text("Score: 0")]
+        grid_states = [[], [], [], []];
+        grid_scores.forEach( function(grid_score) {
+            grid_score.text = 'Score: 0';
+        })
         throwAndDrawDice();
     }
 }
